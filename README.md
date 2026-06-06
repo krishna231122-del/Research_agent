@@ -9,11 +9,7 @@ The workflow operates under a strict separation of concerns, ensuring high data 
 ---
 
 ## 🏗️ Architectural & Workflow Overview
-
-
-<img width="1470" height="956" alt="Screenshot 2026-06-05 at 3 16 16 PM" src="https://github.com/user-attachments/assets/f46fa4c0-b6b5-43d8-bdce-e179268e7321" />
-
-
+<img width="2914" height="1603" alt="Screenshot 2026-06-05 at 3 16 16 PM" src="https://github.com/user-attachments/assets/75a7f76f-22d4-465a-8a1f-3fc13e41ffa4" />
 
 ### Detailed Lifecycle Sequence
 1. **Query Submission:** The user submits a highly technical or specific research query via the interface or core program wrapper.
