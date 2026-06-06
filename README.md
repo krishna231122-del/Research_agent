@@ -31,6 +31,19 @@ The workflow operates under a strict separation of concerns, ensuring high data 
 
 ---
 
+FOR SETUP || RUN PROJECT (CLONE REPO)
+
+1. Install the required project dependencies:
+   pip install -r requirements.txt
+
+2. Create a configuration file named `.env` in your root directory and supply your API credentials:
+   MISTRAL_API_KEY=your_actual_api_key_here
+   TAVILY_API_KEY = Your_actual_api_key_here
+
+3. Initialize and execute the multi-agent framework directly within your terminal:
+   streamlit run app.py
+
+   
 ## 📂 Project Structure
 
 ```text
@@ -47,3 +60,5 @@ Research_agent/
 ├── pyproject.toml       # Project metadata configurations
 ├── uv.lock              # Ultra-fast lockfile resolution tracking
 └── README.md            # System comprehensive blueprint documentation
+
+
