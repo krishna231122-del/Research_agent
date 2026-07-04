@@ -2,11 +2,10 @@
 AI-AGENT
 # 🔬 ResearchFlow · Multi-Agent AI Research System
 
-ResearchFlow is an advanced, production-grade research pipeline powered by a specialized network of cooperative AI agents. By distributing operations across multiple focused intelligence modules—searching, scraping, synthesis, and peer review—ResearchFlow transforms raw technical prompts into polished, factual, deep-dive research reports directly from your command line.
+ResearchFlow is an advanced, production-grade research pipeline powered by a specialized network of cooperative AI agents. By distributing operations across multiple focused intelligence modules—searching, scraping, synthesis, and peer review—ResearchFlow transforms raw technical prompts into polished, factual, deep-dive research reports directly from your command line. 
+The workflow operates under a strict separation of concerns, ensuring high data fidelity, minimizing hallucinations, and generating publication-ready Markdown assets natively. Its modular, scalable architecture enables reliable, high-quality research automation for complex technical and scientific domains.
 
-The workflow operates under a strict separation of concerns, ensuring high data fidelity, minimizing hallucinations, and generating publication-ready Markdown assets natively.
-
----
+-----------------------------------------------------------------------------------------------
 
 ## 🏗️ Architectural & Workflow Overview
 <img width="2914" height="1603" alt="Screenshot 2026-06-05 at 3 16 16 PM" src="https://github.com/user-attachments/assets/75a7f76f-22d4-465a-8a1f-3fc13e41ffa4" />
