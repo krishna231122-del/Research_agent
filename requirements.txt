@@ -42,9 +42,20 @@ pydantic>=2.5.0
 # Optional (for advanced parsing / HTML cleanup)
 html5lib>=1.1
 
+<<<<<<< HEAD
 os 
 sys 
 passlib[bcrypt]
 python-jose[cryptography]
 python-multipart
 sqlalchemy
+=======
+streamlit
+langchain
+langchain-core
+langchain-community
+langchain-mistralai
+python-dotenv
+beautifulsoup4
+requests
+>>>>>>> 3002927fb8cb2f4a9c68ff15f771d55f277b545e

@@ -2,13 +2,21 @@
 AI-AGENT
 # 🔬 ResearchFlow · Multi-Agent AI Research System
 
-ResearchFlow is an advanced, production-grade research pipeline powered by a specialized network of cooperative AI agents. By distributing operations across multiple focused intelligence modules—searching, scraping, synthesis, and peer review—ResearchFlow transforms raw technical prompts into polished, factual, deep-dive research reports directly from your command line.
+ResearchFlow is an advanced, production-grade research pipeline powered by a specialized network of cooperative AI agents. By distributing operations across multiple focused intelligence modules—searching, scraping, synthesis, and peer review—ResearchFlow transforms raw technical prompts into polished, factual, deep-dive research reports directly from your command line. 
+The workflow operates under a strict separation of concerns, ensuring high data fidelity, minimizing hallucinations, and generating publication-ready Markdown assets natively. Its modular, scalable architecture enables reliable, high-quality research automation for complex technical and scientific domains.
 
-The workflow operates under a strict separation of concerns, ensuring high data fidelity, minimizing hallucinations, and generating publication-ready Markdown assets natively.
-
----
+-----------------------------------------------------------------------------------------------
 
 ## 🏗️ Architectural & Workflow Overview
+<<<<<<< HEAD
+=======
+<img width="2914" height="1603" alt="Screenshot 2026-06-05 at 3 16 16 PM" src="https://github.com/user-attachments/assets/75a7f76f-22d4-465a-8a1f-3fc13e41ffa4" />
+
+
+https://github.com/user-attachments/assets/d3695153-f7c0-407f-8d23-fa36df8b9df2
+
+
+>>>>>>> 3002927fb8cb2f4a9c68ff15f771d55f277b545e
 
 ### Detailed Lifecycle Sequence
 1. **Query Submission:** The user submits a highly technical or specific research query via the interface or core program wrapper.
@@ -30,6 +38,19 @@ The workflow operates under a strict separation of concerns, ensuring high data 
 
 ---
 
+FOR SETUP || RUN PROJECT (CLONE REPO)
+
+1. Install the required project dependencies:
+   pip install -r requirements.txt
+
+2. Create a configuration file named `.env` in your root directory and supply your API credentials:
+   MISTRAL_API_KEY=your_actual_api_key_here
+   TAVILY_API_KEY = Your_actual_api_key_here
+
+3. Initialize and execute the multi-agent framework directly within your terminal:
+   streamlit run app.py
+
+   
 ## 📂 Project Structure
 
 ```text
@@ -46,3 +67,5 @@ Research_agent/
 ├── pyproject.toml       # Project metadata configurations
 ├── uv.lock              # Ultra-fast lockfile resolution tracking
 └── README.md            # System comprehensive blueprint documentation
+
+
