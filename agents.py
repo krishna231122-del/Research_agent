@@ -1,5 +1,5 @@
 
-from langchain.agents import AgentExecutor, create_react_agent
+from langchain.agents import create_agent
 from langchain_core.prompts import prompt
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -12,7 +12,7 @@ llm = ChatMistralAI(model="mistral-small-2603", temperature=0)
 
 #1st agent
 def build_search_agent():
-    return create_react_agent(
+    return create_agent(
         tools= [web_search],
         model = llm,
     )
@@ -20,7 +20,7 @@ def build_search_agent():
 #2nd agent
 
 def build_reader_agent():
-    return create_react_agent(
+    return create_agent(
         model = llm,
         tools = [scrape_url]
     )
