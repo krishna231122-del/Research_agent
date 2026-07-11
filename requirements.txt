@@ -41,3 +41,10 @@ pydantic>=2.5.0
 
 # Optional (for advanced parsing / HTML cleanup)
 html5lib>=1.1
+
+os 
+sys 
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+sqlalchemy

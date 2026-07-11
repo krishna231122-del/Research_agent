@@ -9,7 +9,7 @@ The workflow operates under a strict separation of concerns, ensuring high data 
 ---
 
 ## 🏗️ Architectural & Workflow Overview
-![Screenshot 2026-06-05 at 3.16.16 PM.png](../../Desktop/PICS/Screenshot%202026-06-05%20at%203.16.16%E2%80%AFPM.png)![BF302ABE-F48C-4DAB-BA70-2A8F7D6F63A0_1_102_a.jpeg](../../Pictures/Photos%20Library.photoslibrary/resources/derivatives/B/BF302ABE-F48C-4DAB-BA70-2A8F7D6F63A0_1_102_a.jpeg)
+
 ### Detailed Lifecycle Sequence
 1. **Query Submission:** The user submits a highly technical or specific research query via the interface or core program wrapper.
 2. **Intent Analysis:** The core `Research Agent` breaks down the request into discrete informational requirements.
