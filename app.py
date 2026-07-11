@@ -1,14 +1,69 @@
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import streamlit as st
 import time
 from agents import build_reader_agent, build_search_agent, writer_chain, critic_chain
+from Database1 import SessionLocal
+from auth.service import create_user, authenticate_user
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="ResearchFlow · AI Research Agent",
     page_icon="🔬",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",   # was "collapsed"
 )
+
+# ── Auth gate ─────────────────────────────────────────────────────────────────
+if "user_email" not in st.session_state:
+    st.session_state.user_email = None
+
+def login_screen():
+    st.markdown("## 🔬 ResearchFlow")
+    st.caption("Sign in to run the research pipeline")
+
+    tab_login, tab_signup = st.tabs(["Log In", "Sign Up"])
+
+    with tab_login:
+        email = st.text_input("Email", key="login_email")
+        password = st.text_input("Password", type="password", key="login_pw")
+        if st.button("Log In", key="login_btn"):
+            db = SessionLocal()
+            user = authenticate_user(db, email, password)
+            db.close()
+            if user:
+                st.session_state.user_email = user.email
+                st.rerun()
+            else:
+                st.error("Incorrect email or password.")
+
+    with tab_signup:
+        new_email = st.text_input("Email", key="signup_email")
+        new_password = st.text_input("Password", type="password", key="signup_pw")
+        if st.button("Create Account", key="signup_btn"):
+            if not new_email or not new_password:
+                st.warning("Enter an email and password.")
+            else:
+                db = SessionLocal()
+                user = create_user(db, new_email, new_password)
+                db.close()
+                if user:
+                    st.success("Account created. Please log in.")
+                else:
+                    st.error("Email already registered.")
+
+if not st.session_state.user_email:
+    login_screen()
+    st.stop()
+
+# Logged in — show sign-out + who's logged in
+with st.sidebar:
+    st.write(f"Logged in as **{st.session_state.user_email}**")
+    if st.button("Log Out"):
+        st.session_state.user_email = None
+        st.rerun()
 
 # ── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -376,12 +431,8 @@ with col_pipeline:
         if not r:
             return "waiting"
         steps = ["search", "reader", "writer", "critic"]
-        idx = steps.index(step)
-        completed = list(r.keys())
-        # figure out which steps are done
         if step in r:
             return "done"
-        # which step is running now (first not in r)
         if st.session_state.running:
             for i, k in enumerate(steps):
                 if k not in r:
@@ -408,7 +459,6 @@ if st.session_state.running and not st.session_state.done:
     results = {}
     topic_val = st.session_state.topic_input
 
-    # ── Step 1: Search ──
     with st.spinner("🔍  Search Agent is working…"):
         search_agent = build_search_agent()
         sr = search_agent.invoke({
@@ -416,9 +466,7 @@ if st.session_state.running and not st.session_state.done:
         })
         results["search"] = sr["messages"][-1].content
         st.session_state.results = dict(results)
-    st.rerun() if False else None   # keep inline for now
 
-    # ── Step 2: Reader ──
     with st.spinner("📄  Reader Agent is scraping top resources…"):
         reader_agent = build_reader_agent()
         rr = reader_agent.invoke({
@@ -431,7 +479,6 @@ if st.session_state.running and not st.session_state.done:
         results["reader"] = rr["messages"][-1].content
         st.session_state.results = dict(results)
 
-    # ── Step 3: Writer ──
     with st.spinner("✍️  Writer is drafting the report…"):
         research_combined = (
             f"SEARCH RESULTS:\n{results['search']}\n\n"
@@ -443,7 +490,6 @@ if st.session_state.running and not st.session_state.done:
         })
         st.session_state.results = dict(results)
 
-    # ── Step 4: Critic ──
     with st.spinner("🧐  Critic is reviewing the report…"):
         results["critic"] = critic_chain.invoke({
             "report": results["writer"]
@@ -462,7 +508,6 @@ if r:
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     st.markdown('<div class="section-heading">Results</div>', unsafe_allow_html=True)
 
-    # Raw outputs in expanders
     if "search" in r:
         with st.expander("🔍 Search Results (raw)", expanded=False):
             st.markdown(f'<div class="result-panel"><div class="result-panel-title">Search Agent Output</div>'
@@ -473,16 +518,14 @@ if r:
             st.markdown(f'<div class="result-panel"><div class="result-panel-title">Reader Agent Output</div>'
                         f'<div class="result-content">{r["reader"]}</div></div>', unsafe_allow_html=True)
 
-    # Final report
     if "writer" in r:
         st.markdown("""
         <div class="report-panel">
             <div class="panel-label orange">📝 Final Research Report</div>
         """, unsafe_allow_html=True)
-        st.markdown(r["writer"])   # render markdown natively
+        st.markdown(r["writer"])
         st.markdown("</div>", unsafe_allow_html=True)
 
-        # Download
         st.download_button(
             label="⬇  Download Report (.md)",
             data=r["writer"],
@@ -490,7 +533,6 @@ if r:
             mime="text/markdown",
         )
 
-    # Critic feedback
     if "critic" in r:
         st.markdown("""
         <div class="feedback-panel">
