@@ -27,45 +27,87 @@ https://github.com/user-attachments/assets/d3695153-f7c0-407f-8d23-fa36df8b9df2
 
 ---
 
-## ✨ Features
+## Features
 
-- 🤖 **Multi-Agent Architecture:** Powered by a decentralized network of autonomous, cooperative agents.
-- 🔍 **Automated Deep Research:** Native web scraping and search logic explicitly optimized for data extraction.
-- 🛠 **Custom Tool Extensibility:** Modular decorator-based structure to hook in custom scrapers, database wrappers, or private APIs.
-- 🔄 **Stateful Pipeline Engine:** Strict execution pipeline management separating discovery, content synthesis, and validation.
-- 📄 **Rich Document Generation:** Generates comprehensive, natively readable Markdown (`.md`) structural assets.
-- 🔑 **Secure Environment Layer:** Isolated credentials mapping using dotenv patterns for all underlying LLM endpoints and search aggregators.
+- 🔍 Multi-agent orchestration via LangGraph
+- 🔐 User authentication (signup/login) with bcrypt password hashing
+- 📄 Live pipeline status tracking in the UI
+- 📝 Markdown report export
+- 🧐 Automated critic feedback on generated reports
+- 🎨 Custom-styled Streamlit interface
 
 ---
 
-FOR SETUP || RUN PROJECT (CLONE REPO)
+## Tech Stack
+- **Frontend/UI:** Streamlit
+- **Orchestration:** LangChain, LangGraph
+- **LLM:** Mistral AI
+- **Search:** Tavily API
+- **Auth:** bcrypt password hashing, SQLAlchemy ORM
+- **Database:** SQLite (dev) / PostgreSQL-ready
+- **Package management:** uv
 
-1. Install the required project dependencies:
+--------
+## Setup
+
+1. **Clone the repo**
+```bash
+   git clone https://github.com/krishna231122-del/Research_agent.git
+   cd Research_agent
+```
+
+2. **Create a virtual environment and install dependencies**
+```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
    pip install -r requirements.txt
+```
 
-2. Create a configuration file named `.env` in your root directory and supply your API credentials:
-   MISTRAL_API_KEY=your_actual_api_key_here
-   TAVILY_API_KEY = Your_actual_api_key_here
-
-3. Initialize and execute the multi-agent framework directly within your terminal:
-   streamlit run app.py
-
+3. **Set up environment variables** — create a `.env` file:
    
 ## 📂 Project Structure
-
 ```text
 Research_agent/
-│
-├── .venv/               # Isolated Python virtual environment directory
-├── .env                 # Local credential environment variables (Git-ignored)
-├── agents.py            # AI agent profiles, instructions, and instantiation logic
-├── app.py               # Main framework execution and UI layer
-├── pipeline.py          # Core task workflow orchestration framework
-├── tool.py              # External tool integrations (Search, scraping wrappers)
-│
-├── requirements.txt     # Pin-point dependency manifest
-├── pyproject.toml       # Project metadata configurations
-├── uv.lock              # Ultra-fast lockfile resolution tracking
-└── README.md            # System comprehensive blueprint documentation
+├── app.py                 # Main Streamlit app + auth gate + pipeline UI
+├── agents.py               # Agent definitions (search, reader, writer, critic)
+├── pipeline.py             # Core pipeline orchestration logic
+├── tool.py                 # External tool integrations (search, scraping)
+├── Database1.py            # SQLAlchemy engine, session, Base
+├── init_db.py               # One-time script to create DB tables
+├── auth/
+│   ├── models.py           # User table (SQLAlchemy model)
+│   ├── security.py         # Password hashing (bcrypt)
+│   └── service.py          # create_user, authenticate_user logic
+├── requirements.txt
+├── pyproject.toml
+└── uv.lock
+```text
+4. **Initialize the database**
+```bash
+   python3 init_db.py
+```
 
+5. **Run the app**
+```bash
+   streamlit run app.py
+```
 
+6. Open `http://localhost:8501` in your browser, sign up, and start researching.
+
+## How It Works
+
+1. User signs up / logs in (credentials hashed with bcrypt, stored in SQLite via SQLAlchemy)
+2. User enters a research topic
+3. The pipeline runs sequentially through all four agents, streaming progress to the UI
+4. Final report and critic feedback are displayed, with a downloadable `.md` export
+
+## Roadmap
+
+- [ ] JWT-based API layer for programmatic access
+- [ ] Per-user research history
+- [ ] Rate limiting per user
+- [ ] PostgreSQL deployment support
+
+## License
+
+MIT
