@@ -1,5 +1,3 @@
-# ResearchFlow
-AI-AGENT
 # 🔬 ResearchFlow · Multi-Agent AI Research System
 
 ResearchFlow is an advanced, production-grade research pipeline powered by a specialized network of cooperative AI agents. By distributing operations across multiple focused intelligence modules—searching, scraping, synthesis, and peer review—ResearchFlow transforms raw technical prompts into polished, factual, deep-dive research reports directly from your command line. 
